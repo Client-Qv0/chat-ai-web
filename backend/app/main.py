@@ -6,6 +6,9 @@ from app.db.base import Base
 from app.db.session import engine
 from app.api.v1 import auth
 from app.api.v1 import chat
+from app.api.v1 import api_keys
+from app.api.v1 import token_usage
+from app.api.v1_openai import chat as openai_chat
 
 
 @asynccontextmanager
@@ -32,3 +35,6 @@ async def health_check():
 
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(chat.router, prefix="/api/v1")
+app.include_router(api_keys.router, prefix="/api/v1")
+app.include_router(token_usage.router, prefix="/api/v1")
+app.include_router(openai_chat.router)
