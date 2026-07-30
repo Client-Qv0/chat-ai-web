@@ -13,14 +13,21 @@ from app.models.user import User
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=TokenResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/register", response_model=LoginResponse, status_code=status.HTTP_201_CREATED)
 async def register(data: RegisterRequest, db: AsyncSession = Depends(get_db)):
     existing = await get_user_by_phone(db, data.phone)
     if existing:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Phone already registered")
     user = await create_user(db, data)
     token = create_access_token({"sub": str(user.id)})
-    return TokenResponse(access_token=token)
+    return LoginResponse(
+        access_token=token,
+        user_info=UserInfo(
+            id=str(user.id), username=user.username, phone=user.phone,
+            role=user.role.value, avatar_url=user.avatar_url,
+            created_at=user.created_at.isoformat(),
+        ),
+    )
 
 
 @router.post("/login", response_model=LoginResponse)

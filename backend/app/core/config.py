@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     LLM_MODEL: str = "qwen3.5:0.8b"
     SECRET_KEY: str = "change-me-to-a-random-secret-string"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080
-    ALLOWED_ORIGINS: list[str] = ["http://localhost:5173"]
+    ALLOWED_ORIGINS: list[str] = ["http://localhost:5173", "http://192.168.63.156:5173"]
 
     class Config:
         env_file = ".env"
