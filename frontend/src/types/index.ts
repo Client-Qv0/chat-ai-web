@@ -62,3 +62,35 @@ export interface DailyUsage {
   completion_tokens: number
   total_tokens: number
 }
+
+export interface AdminStats {
+  total_users: number
+  total_conversations: number
+  total_messages: number
+  total_tokens: number
+}
+
+export interface AdminUser {
+  id: string
+  username: string
+  phone: string
+  role: string
+  created_at: string
+}
+
+export interface AdminConversation {
+  id: string
+  route_id: string
+  title: string
+  username: string
+  phone: string
+  created_at: string
+}
+
+export interface AdminMessage {
+  id: string
+  role: string
+  content: string
+  tokens_used: number
+  created_at: string
+}
