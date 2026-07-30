@@ -29,7 +29,17 @@ const router = createRouter({
       ],
     },
     { path: '/user/:phone', component: () => import('@/views/user/UserProfile.vue'), meta: { requiresAuth: true } },
-    { path: '/admin', component: () => import('@/views/admin/AdminLayout.vue'), meta: { requiresAuth: true, requiresAdmin: true } },
+    {
+      path: '/admin',
+      component: () => import('@/views/admin/AdminLayout.vue'),
+      meta: { requiresAuth: true, requiresAdmin: true },
+      children: [
+        { path: '', redirect: '/admin/dashboard' },
+        { path: 'dashboard', component: () => import('@/views/admin/AdminDashboard.vue') },
+        { path: 'users', component: () => import('@/views/admin/AdminUsers.vue') },
+        { path: 'conversations', component: () => import('@/views/admin/AdminConversations.vue') },
+      ],
+    },
   ],
 })
 
