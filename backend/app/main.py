@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.db.base import Base
 from app.db.session import engine
 from app.api.v1 import auth
+from app.api.v1 import chat
 
 
 @asynccontextmanager
@@ -30,3 +31,4 @@ async def health_check():
     return {"status": "ok"}
 
 app.include_router(auth.router, prefix="/api/v1")
+app.include_router(chat.router, prefix="/api/v1")
